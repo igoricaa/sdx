@@ -6,7 +6,7 @@ class Core
 {
     static function init($data = [])
     {
-        $url = isset($_GET['sophia']) ? explode('/', filter_var(rtrim($_GET['sophia'] ?? [], '/'), FILTER_SANITIZE_URL)) : [];
+        $url = isset($_GET['sophia']) ? explode('/', filter_var(rtrim($_GET['sophia'], '/'), FILTER_SANITIZE_URL)) : [];
         foreach ($data['css'] as $css)
             Stylesheet::add($css[0], $css[1]);
 
@@ -31,10 +31,10 @@ class Core
         }
         $Controller = '\\' . $Folder . '\\' . $Controller;
         if (!class_exists($Controller))
-            return "404";
+            return ['view' => '404', 'page' => '404'];
         $Controller =  new $Controller;
         if (!method_exists($Controller, $Method))
-            return "404";
+            return ['view' => '404', 'page' => '404'];
         $params = $url ? array_values($url) : [];
         return call_user_func_array([$Controller, $Method], $params);
     }

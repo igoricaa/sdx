@@ -50,6 +50,11 @@ error_reporting(E_ALL);
 require_once 'sophia/vendor/autoload.php';
 session_start();
 date_default_timezone_set('Europe/Belgrade');
+
+// Convert hyphens to underscores in sophia parameter to match method names
+if (isset($_GET['sophia'])) {
+    $_GET['sophia'] = str_replace('-', '_', $_GET['sophia']);
+}
 define('DIR', $_SERVER['DOCUMENT_ROOT']);
 define('APP', DIR . '/app');
 define('VIEWS', '/views/');
