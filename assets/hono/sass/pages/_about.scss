@@ -1,0 +1,89 @@
+/*****************************
+* Page - About
+*****************************/
+
+.about-top{
+	.content{
+		margin-top: 40px;
+		@include breakpoint(medium){margin-top: 0;}
+
+		.title{
+			font-size: 32px;
+			font-weight: 700;
+			margin-bottom: 25px;
+			text-transform: uppercase;
+		}
+
+		.semi-title{
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.progressbar-section{
+	.content{
+		.title{
+			font-size: 28px;
+			font-weight: 700;
+			margin-bottom: 15px;
+			text-transform: capitalize;
+		}
+	}
+}
+
+.skill-progressbar{
+	margin-bottom: 35px;
+	&:last-child{margin-bottom: 0}
+}
+
+
+.team{
+	&-single{
+		background: $white;
+	    margin: 0 auto;
+	    text-align: center;
+        padding: 20px 30px 45px 30px;
+    }
+    
+    &-content{
+        position: relative;
+        font-size: 16px;
+    }
+
+    &-name{
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+	&-img img{margin: 0 auto;}
+
+	&-social {
+	    width: 100%;
+	    background: $white;
+	    bottom: -22px;
+	    transition: $transition-base;
+	    opacity: 0;
+        visibility: hidden;
+        font-size: 16px;
+	}
+
+	&-social li {
+	    display: inline-block;
+	    margin-right: 10px;
+	    &:last-child{margin-right: 0}
+	}
+
+	&-social a{
+	    color: $black;
+	    transition: $transition-base;
+	    &:hover{color: $color-golden}
+	}
+
+	&-single:hover &-social{
+		bottom: 0px;
+		opacity: 1;
+	    visibility: visible;
+	}
+}

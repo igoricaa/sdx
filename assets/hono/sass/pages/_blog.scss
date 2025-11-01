@@ -1,0 +1,38 @@
+/*****************************
+* Pages - Blog
+*****************************/
+
+.post-meta{
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    
+    li{
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        &:last-child{margin-right: 0;}
+
+        &::after{
+            position: absolute;
+            content: "/";
+            right: calc(0% - 10px);
+        }
+
+        &:last-child::after{
+            display: none;
+        }
+    }
+
+    li a{
+        color: $color-matt-black;
+
+        &:hover{
+            color: $color-golden;
+            text-decoration: underline;
+        }
+    }
+}
+
+@import "blogs/blog-list";
+@import "blogs/blog-single";

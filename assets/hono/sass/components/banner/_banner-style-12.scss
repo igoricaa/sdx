@@ -1,0 +1,18 @@
+/*Banner Style - 12*/
+.banner-style-12{
+    .image{
+        img{
+            height: auto;
+            @include breakpoint(medium){
+                height: 250px;
+            }
+            @include breakpoint(large){
+                height: 310px;
+            }
+            @include breakpoint(xxlarge){
+                height: 640px;
+            }
+            object-fit: cover;
+        }
+    }
+}

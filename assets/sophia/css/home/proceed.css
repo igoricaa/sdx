@@ -1,0 +1,88 @@
+/* HIDE RADIO */
+
+.pay-checker {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    opacity: 0;
+}
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+
+[type=radio]+p {
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+
+[type=radio]:checked+p {
+    box-shadow: 0 0 0pt 2px #f89d00;
+    background-color: #FEEBCC;
+}
+[type=radio]:checked+p>.pay-checker {
+    opacity: 1;
+}
+
+[type=radio]+p {
+    position: relative;
+    border: 2px solid #F89D00;
+    border-radius: 19px;
+    font-size: 12px;
+}
+
+[type=radio]+p>.proc-img {
+    height: 70px;
+}
+@media screen and (min-width: 800px) {
+    [type=radio]+p {
+        min-width: 380px;
+        font-size: 25px;
+    }
+    [type=radio]+p>.proc-img {
+        height: 100px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .cst-pa{
+        font-size: 11px;
+    }
+    .cst-pa{
+        font-size: 11px;
+    }
+}
+
+.btn-insctructions {
+    border: 2px solid #F89D00;
+    border-radius: 19px!important;
+    padding: 6px;
+    background: white;
+    color: black;
+    font-weight: 400;
+}
+.crypto-list li{
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 2px solid #F89D00;
+    padding: 15px 25px;
+    font-size: 16px;
+
+}
+.crypto-list li:hover{
+    background-color: #eee;
+    cursor: pointer;
+}
+.crypto-list li img{
+    height: 56px;
+    padding-right: 2rem;
+
+}
+.crypto-list li:last-child{
+    border-bottom: 0px solid #F89D00;
+
+}

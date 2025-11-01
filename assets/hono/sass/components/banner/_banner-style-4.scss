@@ -1,0 +1,95 @@
+/*Banner Style - 4*/
+.banner-style-4{
+    width: 100%;
+    overflow: hidden;
+    @include breakpoint(small){
+        width: 50%;
+    }
+    @include breakpoint(large){
+        width: 25%;
+    }
+    .content{
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        padding-top: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        .title{
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 9px;
+            transition: $transition-base;
+        }
+
+        .sub-title{
+            font-size: 14px;
+            letter-spacing: 0.12em;
+            color: $body-color;
+        }
+        .round-btn{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            color: $color-matt-black;
+            background: #fafafa;
+            transition: $transition-base;
+            border: 2px solid transparent;
+            outline: none;
+            line-height: 38px;
+            font-size: 24px;
+            transition: $transition-base;
+        }
+    }
+
+    &.banner-color{
+        &--golden:hover{
+            .content{
+                .title{color: $color-golden;}
+                .round-btn{  
+                    color: $white;
+                    background: $color-golden;
+                }
+            }
+        }
+        
+        &--green:hover{
+            .content{
+                .title{color: $color-green;}
+                .round-btn{  
+                    color: $white;
+                    background: $color-green;
+                }
+            }
+        }
+
+        &--aqua:hover{
+            .content{
+                .title{color: $color-aqua;}
+                .round-btn{  
+                    color: $white;
+                    background: $color-aqua;
+                }
+            }
+        }
+
+        &--pink:hover{
+            .content{
+                .title{color: $color-pink;}
+                .round-btn{  
+                    color: $white;
+                    background: $color-pink;
+                }
+            }
+        }
+        
+    }
+}

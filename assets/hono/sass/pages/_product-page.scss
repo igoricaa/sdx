@@ -1,0 +1,107 @@
+/*****************************
+* Pages - Product Details
+*****************************/
+
+.product-details-content-area {
+    margin-top: 40px;
+    @include breakpoint(large) {
+        margin-top: 0;
+    }
+    .product-details-text {
+        .title {
+            font-size: 26px;
+            @include breakpoint(medium) {
+                font-size: 28px;
+            }
+            @include breakpoint(large) {
+                font-size: 30px;
+            }
+            @include breakpoint(xlarge) {
+                font-size: 34px;
+            }
+        }
+        .customer-review {
+            color: $color-matt-black;
+        }
+        .price {
+            font-size: 28px;
+            color: $color-matt-black;
+            margin-bottom: 15px;
+        }
+        .product-details-variable {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+}
+
+.product-details-catagory,
+.product-details-social {
+    display: flex;
+    align-items: center;
+    span {
+        margin-right: 15px;
+    }
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    ul li {
+        margin-right: 10px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    ul li a {
+        font-weight: 600;
+        font-size: 14px;
+    }
+}
+
+.product-details-catagory {
+    ul li {
+        &::after {
+            position: absolute;
+            content: ",";
+        }
+        &:last-child::after {
+            display: none;
+        }
+    }
+}
+
+.product-details-social {
+    ul li a {
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+.product-details--golden {
+    .review-star {
+        .fill {
+            color: $color-golden;
+        }
+    }
+    .customer-review:hover {
+        color: $color-golden;
+    }
+    .product-details-social,
+    .product-details-catagory {
+        ul li a {
+            color: $color-golden;
+        }
+    }
+
+    .product-details-meta{
+        a:hover{color: $color-golden;}
+    }
+}
+
+@import "product-details/product-gallery";
+@import "product-details/product-details-variable";
+@import "product-details/product-details-tab";

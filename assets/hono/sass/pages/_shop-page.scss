@@ -1,0 +1,16 @@
+/*****************************
+* Pages - Shop
+*****************************/
+
+.sort-box{
+    & > div{
+        margin-bottom: 20px;
+        &:last-child{margin-bottom: 0px;}
+
+        @include breakpoint(medium){
+            margin-bottom: 0;
+        }
+    }
+
+
+}

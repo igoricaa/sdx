@@ -1,0 +1,248 @@
+/*****************************
+* Layout - Footer
+*****************************/
+.footer-bg{
+    background: $color-matt-black;
+    padding-top: 60px;
+    @include breakpoint(medium){
+        padding-top: 80px;
+    }
+    @include breakpoint(large){
+        padding-top: 100px;
+    }
+}
+
+
+/*Footer Top*/
+.footer-top{
+    .footer-widget-single-item{
+        .title{
+            color: $white;
+            font-weight: 700;
+            font-size: 16px;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 23px;
+            text-transform: uppercase;
+
+            &::after{
+                content: "";
+                width: 50px;
+                height: 2px;
+                left: 0;
+                bottom: 0;
+                position: absolute;
+            }
+        }
+
+        .footer-nav{
+            li{
+                margin-bottom: 8px;
+                display: block;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+
+            li a{
+                display: inline-block;
+                color: #9b9b97;
+                transition: $transition-base;
+                &:hover{
+                    color: $white;
+                    transform: translateX(10px);
+                }
+            }
+        }
+    }
+
+    .footer-widget-color{
+        &--golden{
+            .title{
+                &::after{
+                    background: $color-golden;
+                }
+            }
+        }
+        &--green{
+            .title{
+                &::after{
+                    background: $color-green;
+                }
+            }
+        }
+        &--aqua{
+            .title{
+                &::after{
+                    background: $color-aqua;
+                }
+            }
+        }
+        &--pink{
+            .title{
+                &::after{
+                    background: $color-pink;
+                }
+            }
+        }
+    }
+}
+
+/*Footer Center*/
+.footer-center{
+    margin-top: 40px;
+    padding: 60px 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    @include breakpoint(medium){
+        margin-top: 55px;
+    }
+}
+
+
+.footer-social{
+    .title{
+        color: $white;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 27px;
+        text-transform: uppercase;
+    }
+}
+
+.footer-social-link{
+    li{
+        display: inline-block;
+        margin-right: 20px;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+
+    li a{
+        display: block;
+        text-align: center;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        background: #2f3239;
+        color: $white;
+        transition: $transition-base;
+        font-size: 16px;
+
+        &:hover{
+            background: $white;
+            color: #2f3239;
+        }
+    }
+}
+
+.footer-newsletter{
+    .title{
+        color: $white;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 27px;
+        text-transform: uppercase;
+    }
+}
+
+.form-fild-newsletter-single-item {
+    position: relative;
+    input{
+        width: 100%;
+        border: 2px solid #9b9b97;
+        border-radius: 5px;
+        padding: 10px 145px 10px 20px;
+        font-size: 14px;
+        color: rgba(255,255,255,0.5);
+        transition: $transition-base;
+    }
+
+    button{
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-top-right-radius:  5px;
+        border-bottom-right-radius:  5px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        transition: $transition-base;
+    }
+
+    &.input-color{
+        &--golden {
+            input:focus{
+                border-color: $color-golden;
+            }
+            button{
+                background: $color-golden;
+                color: $white;
+        
+                &:hover{
+                    background: $white;
+                    color: $color-golden;
+                }
+            }
+        } 
+        &--green {
+            input:focus{
+                border-color: $color-green;
+            }
+            button{
+                background: $color-green;
+                color: $white;
+        
+                &:hover{
+                    background: $white;
+                    color: $color-green;
+                }
+            }
+        } 
+        &--aqua {
+            input:focus{
+                border-color: $color-aqua;
+            }
+            button{
+                background: $color-aqua;
+                color: $white;
+        
+                &:hover{
+                    background: $white;
+                    color: $color-aqua;
+                }
+            }
+        } 
+        &--pink {
+            input:focus{
+                border-color: $color-pink;
+            }
+            button{
+                background: $color-pink;
+                color: $white;
+        
+                &:hover{
+                    background: $white;
+                    color: $color-pink;
+                }
+            }
+        } 
+    } 
+} 
+
+/*Footer Bottom*/
+.footer-bottom{
+    padding-top: 35px ;
+    padding-bottom: 35px ;
+}
+
+.footer-copyright{
+    text-transform: uppercase;
+    p{margin-bottom: 0;}
+    a{color: $white;}
+}

@@ -1,0 +1,46 @@
+/*Banner Style - 2*/
+.banner-style-2{
+    .content{
+        top: 50%;
+        transform: translateY(-50%);
+        right: 30px;
+
+        @include breakpoint(large){
+            right: 15px;
+        }
+        @include breakpoint(xlarge){
+            right: 30px;
+        }
+        @include breakpoint(xxlarge){
+            right: 60px;
+        }
+
+        .title{
+            font-size: 20px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+
+            @include breakpoint(large){
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            @include breakpoint(xxlarge){
+                font-size: 30px;
+                margin-bottom: 23px;
+            }
+        }
+
+        .link-text{
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: $color-matt-black;
+
+            &:hover{
+                color: $color-golden;
+            }
+        }
+
+    }
+}

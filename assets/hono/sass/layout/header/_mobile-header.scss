@@ -1,0 +1,58 @@
+/*****************************
+* Layout - Header Mobile
+*****************************/
+
+.mobile-menu-logo{
+    li{
+        margin-right: 15px;
+        &:last-child{margin-right: 0;}
+    }
+}
+.mobile-menu-logo {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-menu-logo .logo {
+    width: 100px;
+    overflow: hidden;
+}
+
+.mobile-menu-logo .logo img {
+    width: 100%;
+    height: auto;
+}
+
+.mobile-header {
+    padding: 15px 0;
+}
+
+.offside-menu{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: normal !important;
+    display: block;
+    border-radius: 50%;
+    background: rgba(242,232,231,0.5);;
+}
+
+.offside-menu-color{
+    &--black{
+        color: $white;
+        background:  rgba(255,255,255,0.05);
+    }
+}
+.offside-menu-hover-color{
+    &--golden:hover{color: $color-golden;}
+    &--green:hover{color: $color-green;}
+    &--pink:hover{color: $color-pink;}
+    &--aqua:hover{color: $color-aqua;}
+}
+
+.mobile-header-bg-color{
+    &--golden{background: #FEF5EF;}
+    &--white{background: $white;}
+    &--black{background: $color-matt-black;}
+}

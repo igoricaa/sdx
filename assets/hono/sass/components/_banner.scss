@@ -1,0 +1,75 @@
+/***********************
+* Components - Banner
+************************/
+.banner-single-item {
+    position: relative;
+    overflow: hidden;
+    .image-link{
+        display: block;
+    }
+    .image{
+        text-align: center;
+    }
+    .content{
+        position: absolute;
+        z-index: 9;
+    }
+}
+
+/*Banner Animation*/
+.banner-animation{
+    position: relative;
+    &::before{
+        background: rgba(255,255,255,0.3);
+        bottom: 0;
+        content: "";
+        left: 50%;
+        position: absolute;
+        right: 50%;
+        top: 0;
+        opacity: 1;
+        width: 0;
+    }
+
+    &::after{
+        background: rgba(255,255,255,0.6);
+        bottom: 50%;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        opacity: 1;
+        width: 0;
+    }
+
+    &:hover::before{
+        left: 0;
+        right: 0;
+        opacity: 0;
+        width: auto;
+        transition: all 900ms linear;
+    }
+    &:hover::after{
+        top: 0;
+        bottom: 0;
+        opacity: 0;
+        width: auto;
+        transition: all 900ms linear;
+    }
+}
+
+@import "banner/banner-style-1";
+@import "banner/banner-style-2";
+@import "banner/banner-style-3";
+@import "banner/banner-style-4";
+@import "banner/banner-style-5";
+@import "banner/banner-style-6";
+@import "banner/banner-style-7";
+@import "banner/banner-style-8";
+@import "banner/banner-style-10";
+@import "banner/banner-style-11";
+@import "banner/banner-style-12";
+@import "banner/banner-style-13";
+
+

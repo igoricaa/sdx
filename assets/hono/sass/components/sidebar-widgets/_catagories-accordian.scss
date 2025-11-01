@@ -1,0 +1,47 @@
+.sidebar-menu{
+    li{
+        margin-bottom: 14px;
+        &:last-child{margin-bottom: 0;}
+    }
+
+    li a{
+        font-weight: 700;
+        color: $color-matt-black;
+        &:hover{color: $color-golden;}
+    }
+
+}
+
+.accordion-title{
+    color: $color-matt-black;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    
+}
+
+.accordion-title{
+    position: relative;
+}
+
+.collapsed.accordion-title i{
+        transform: rotate(0deg);
+       
+}
+.accordion-title i{
+        transform: rotate(90deg);
+        transition: $transition-base;
+}
+
+
+.accordion-category-list{
+    li{
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 10px;
+    }
+
+    li a{color: $body-color;}
+}

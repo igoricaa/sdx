@@ -1,0 +1,8 @@
+# Environment variables
+.env
+
+# Vendor directories
+sophia/vendor/
+
+# OS files
+.DS_Store

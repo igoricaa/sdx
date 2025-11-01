@@ -1,0 +1,101 @@
+/***********************
+* Components - Blog Feed
+************************/
+.blog-default-single-item{
+    .image-box{
+        margin-bottom: 20px;
+        overflow: hidden;
+
+        img{
+            transform: scale(1);
+            transition: $transition-base;
+        }
+    }
+    .content{
+        .title a{
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 9px;
+            font-weight: 600;
+            position: relative;
+            text-transform: capitalize;
+            color: $headings-color;
+        }
+
+        .inner{
+            margin-top: 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-meta{margin-top: 0;}
+
+        .read-more-btn{
+            color: $headings-color;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            span{
+                line-height: 1;
+                font-size: 24px;
+            }
+        }
+
+        .post-meta > a{
+            color: $body-color;
+        }
+    }
+    &:hover .image-box img{
+        transform: scale(1.05);
+    }
+
+    &.blog-color{
+        &--golden{
+            .content{
+                .title a:hover{
+                    color: $color-golden;
+                }
+
+                .read-more-btn:hover{
+                    color: $color-golden;
+                }
+            }
+        }
+        &--green{
+            .content{
+                .title a:hover{
+                    color: $color-green;
+                }
+
+                .read-more-btn:hover{
+                    color: $color-green;
+                }
+            }
+        }
+        &--aqua{
+            .content{
+                .title a:hover{
+                    color: $color-aqua;
+                }
+
+                .read-more-btn:hover{
+                    color: $color-aqua;
+                }
+            }
+        }
+        &--pink{
+            .content{
+                .title a:hover{
+                    color: $color-pink;
+                }
+
+                .read-more-btn:hover{
+                    color: $color-pink;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+/*****************************
+* Pages - Empty Cart
+*****************************/
+
+.emptycart-content{
+
+    .title {
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 40px;
+        color: $color-golden;
+    }
+
+    .sub-title{
+        font-size: 22px;
+        font-weight: 600;
+        text-transform: capitalize;
+        margin-top: 25px;
+        color: $body-color;
+
+        @include breakpoint(large){
+            font-size: 26px;
+        }
+    }
+
+    .btn{
+        margin-top: 40px;
+    }
+}

@@ -1,0 +1,53 @@
+/*****************************
+* Components - Sidebar Widget
+*****************************/
+.siderbar-section{
+    margin-top: 60px;
+    @include breakpoint(medium){
+        margin-top: 80px;
+    }
+    @include breakpoint(large){
+        margin-top: 0;
+    }
+}
+.sidebar-single-widget{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    &:first-child{
+        margin-top: 0px;
+    }
+    &:last-child{
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}
+.sidebar-title{
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: 700;
+    padding-bottom: 15px;
+    border-bottom: 2px solid $border-color;
+    position: relative;
+
+    &::after{
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        left: 0;
+        bottom: -1.5px;
+        background: $color-golden;
+    }
+}
+
+.sidebar-banner {
+    margin: 0 auto;
+    display: block;
+}
+
+
+@import "sidebar-widgets/catagories-accordian";
+@import "sidebar-widgets/price-range";
+@import "sidebar-widgets/tag-link";

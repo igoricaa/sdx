@@ -1,0 +1,40 @@
+/*Banner Style - 10*/
+.banner-style-10{
+    width: 100%;
+    overflow: hidden;
+    @include breakpoint(small){
+        width: 100%;
+    }
+    @include breakpoint(large){
+        width: 100%;
+    }
+    @include breakpoint(xlarge){
+        width: 100%;
+    }
+
+    .image{
+        text-align: center;
+        @include breakpoint(medium){
+            text-align: right;
+        }
+    }
+    .content-out{
+        margin-top: 20px;
+        float: none;
+        width: calc(100% - 60px);
+        @include breakpoint(medium){
+            float: right;
+        }
+        .inner-title{
+            display: flex;
+            justify-content: space-between;
+            font-size: 28px;
+            font-weight: 600;
+            color: #24262b;
+            margin-bottom: 10px;
+        }
+
+        .btn{margin-top: 10px;}
+    }
+   
+}

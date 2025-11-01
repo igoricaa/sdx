@@ -1,0 +1,133 @@
+/*****************************
+* Layout - Header
+*****************************/
+
+@import "header/header-top";
+@import "header/header-center";
+@import "header/header-bottom";
+@import "header/main-menu";
+
+.header-logo{
+    .logo{
+        width: 100px;
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.header-action-link {
+    display: flex;
+    align-items: center;
+}
+
+.header-action-link li {
+    margin-right: 20px;
+    &:last-child{margin-right: 0;}
+}
+
+.header-action-link li a {
+    font-size: 21px;
+    position: relative;
+    letter-spacing: -6px;
+}
+
+.header-action-link li a span {
+    display: inline-block;
+    font-size: 11px;
+    background: darkgoldenrod;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    font-weight: 600;
+}
+
+.offside-about{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: normal !important;
+    display: block;
+    border-radius: 50%;
+}
+
+/*Action Style Color Normal*/
+.action-color{
+    &--black{
+        &.header-action-link li a{color: $color-matt-black}
+        .offside-about{background: rgba(242,232,231,0.5);}
+    }
+
+    &--white{
+        &.header-action-link li a{color: $white;}
+        .offside-about{background: rgba(255,255,255,0.05);}
+    }
+}
+
+
+/*Action Style Color Hover*/
+.action-hover-color{
+    &--golden{
+        &.header-action-link li a:hover{color: $color-golden}
+        &.header-action-link li a span {background: $color-golden;}
+        .offside-about:hover{background: $white;}
+    }
+    &--green{
+        &.header-action-link li a:hover{color: $color-green}
+        &.header-action-link li a span {background: $color-green;}
+        .offside-about:hover{background: rgba(255,255,255,0.2);}
+    }
+    &--pink{
+        &.header-action-link li a:hover{color: $color-pink}
+        &.header-action-link li a span {background: $color-pink;}
+        .offside-about:hover{background: rgba(255,255,255,0.2);}
+    }
+    &--aqua{
+        &.header-action-link li a:hover{color: $color-aqua}
+        &.header-action-link li a span {background: $color-aqua;}
+        .offside-about:hover{background: rgba(255,255,255,0.2);}
+    }
+}
+
+.seperate-sticky-bar{
+    display: none;
+}
+.seperate-sticky-bar.sticky{
+    display: block;
+}
+
+.inner-search{
+    right: -15px;
+    width: 330px;
+    background: $white;
+    display: none;
+    input[type="search"]{
+        width: 100%;
+        padding: 15px 50px 15px 10px;
+        border: 1px solid #f0f0f0;
+        font-size: 14px;
+    }
+
+    button{
+        right: 0;
+        background: aliceblue;
+        padding: 10px 14px;
+        top: 50%;
+        transform: translateY(-50%)
+    }
+}
+
+.search-click{
+    cursor: pointer;
+    // &.open{
+    //     .inner-search{
+    //         display: block;
+    //     }
+    // }
+}

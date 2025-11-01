@@ -1,0 +1,123 @@
+/***********************
+* Components - Button
+************************/
+.btn{
+    outline: none;
+    color: $color-matt-black;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    &:focus{
+        box-shadow: none;
+    }
+
+    &-block{
+        display: block;
+    }
+
+    &-lg{
+        padding: 10px 20px;
+        @include breakpoint(medium) {
+            padding: 10px 25px;
+        } 
+        @include breakpoint(xlarge) {
+            padding: 12px 30px;
+        } 
+        @include breakpoint(xxlarge) {
+            padding: 15px 33px;
+        } 
+    }
+
+    
+    &-golden{
+        background: $color-golden;
+        border-color: $color-golden;
+        color: $white;
+
+        &:hover{
+            color: $color-golden;
+            border-color: $color-golden;
+            background: transparent;
+        }
+    }
+    &-green{
+        background: $color-green;
+        border-color: $color-green;
+        color: $white;
+
+        &:hover{
+            color: $color-green;
+            border-color: $color-green;
+            background: transparent;
+        }
+    }
+    &-pink{
+        background: $color-pink;
+        border-color: $color-pink;
+        color: $white;
+
+        &:hover{
+            color: $color-pink;
+            border-color: $color-pink;
+            background: transparent;
+        }
+    }
+    &-aqua{
+        background: $color-aqua;
+        border-color: $color-aqua;
+        color: $white;
+
+        &:hover{
+            color: $color-aqua;
+            border-color: $color-aqua;
+            background: transparent;
+        }
+    }
+    &-black-default-hover{
+        background: $color-matt-black;
+        color: $white;
+
+        &:hover{
+            background: $color-golden;
+            color: $white;
+            
+        }
+    }
+
+    &-outline-golden{
+        border-color: $color-matt-black;
+        &:hover{
+            color: $color-golden;
+            border-color: $color-golden;
+        }
+    }
+    &-outline-green{
+        border-color: $color-matt-black;
+        &:hover{
+            color: $color-green;
+            border-color: $color-green;
+        }
+    }
+    &-outline-aqua{
+        border-color: $color-matt-black;
+        &:hover{
+            color: $color-aqua;
+            border-color: $color-aqua;
+        }
+    }
+    &-outline-pink{
+        border-color: $color-matt-black;
+        &:hover{
+            color: $color-pink;
+            border-color: $color-pink;
+        }
+    }
+    &-outline-black{
+        border-color: $color-matt-black;
+        &:hover{
+            color: $color-matt-black;
+            border-color: $color-matt-black;
+        }
+    }
+}

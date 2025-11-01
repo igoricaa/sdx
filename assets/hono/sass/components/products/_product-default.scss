@@ -1,0 +1,234 @@
+.product-default-single-item{
+    .image-box{
+        position: relative; 
+        overflow: hidden;
+    }
+
+    .image-link{
+        display: block;
+        position: relative;
+
+        & img{
+            width: 100%;
+            height: auto;
+            transition: $transition-base;
+            
+            &:nth-child(2){
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+        }
+    }
+
+    .tag span{
+        position: absolute;
+        display: inline-block;
+        height: 20px;
+        z-index: 2;
+        top: 20px;
+        left: 20px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 10px;
+        color: $white;
+    }
+
+    .action-link{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 60px;
+        background: black;
+        line-height: 60px;
+        padding: 0 20px;
+        visibility: hidden;
+        opacity: 0;
+        transition: $transition-base;
+        transform: translateY(60px);
+    }
+    
+    .action-link-left{
+         a{
+             font-weight: 700;
+             color: $white;
+             text-transform: uppercase;
+             font-size: 14px;
+         }
+    }
+        
+    .action-link-right{
+        a{
+            font-size: 18px;
+            color: $white;
+            margin-right: 15px;
+            &:last-child{margin-right: 0}
+        }
+    }
+    
+    .content{
+        padding-top: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    
+    .content-left{
+        .title{
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            
+            a{
+                color: $headings-color;
+            }
+        }
+    }
+
+    .content-right{
+        .price{
+            del{
+                padding-right: 10px;
+            }
+        }
+    }
+
+    &:hover > .image-box > .image-link img:nth-child(2){
+        opacity: 1;
+    }
+    &:hover .action-link{
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+.product-color{
+    &--golden{
+        .tag span{
+            background: $color-golden;
+        }
+        
+        .action-link-left{
+             a:hover{
+                 color: $color-golden;
+             }
+        }
+        .action-link-right{
+             a:hover{
+                 color: $color-golden;
+             }
+        }
+        
+        .content-left{
+            .title{
+                a:hover{
+                    color: $color-golden;
+                }
+            }
+        }
+        
+        .review-star{
+            li{
+                &.fill{color: $color-golden;}
+            }
+        }
+    }
+    &--green{
+        .tag span{
+            background: $color-green;
+        }
+        
+        .action-link-left{
+             a:hover{
+                 color: $color-green;
+             }
+        }
+        .action-link-right{
+             a:hover{
+                 color: $color-green;
+             }
+        }
+        
+        .content-left{
+            .title{
+                a:hover{
+                    color: $color-green;
+                }
+            }
+        }
+        
+        .review-star{
+            li{
+                &.fill{color: $color-green;}
+            }
+        }
+    }
+    &--aqua{
+        .tag span{
+            background: $color-aqua;
+        }
+        
+        .action-link-left{
+             a:hover{
+                 color: $color-aqua;
+             }
+        }
+        .action-link-right{
+             a:hover{
+                 color: $color-aqua;
+             }
+        }
+        
+        .content-left{
+            .title{
+                a:hover{
+                    color: $color-aqua;
+                }
+            }
+        }
+        
+        .review-star{
+            li{
+                &.fill{color: $color-aqua;}
+            }
+        }
+    }
+    &--pink{
+        .tag span{
+            background: $color-pink;
+        }
+        
+        .action-link-left{
+             a:hover{
+                 color: $color-pink;
+             }
+        }
+        .action-link-right{
+             a:hover{
+                 color: $color-pink;
+             }
+        }
+        
+        .content-left{
+            .title{
+                a:hover{
+                    color: $color-pink;
+                }
+            }
+        }
+        
+        .review-star{
+            li{
+                &.fill{color: $color-pink;}
+            }
+        }
+    }
+    
+}

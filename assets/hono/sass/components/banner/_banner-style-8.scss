@@ -1,0 +1,11 @@
+/*Banner Style - 8*/
+.banner-style-8{
+    width: 100%;
+    overflow: hidden;
+    @include breakpoint(small){
+        width: 50%;
+    }
+    @include breakpoint(large){
+        width: 50%;
+    }
+}

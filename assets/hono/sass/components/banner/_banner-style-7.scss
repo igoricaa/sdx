@@ -1,0 +1,11 @@
+/*Banner Style - 7*/
+.banner-style-7{
+    width: 100%;
+    overflow: hidden;
+    @include breakpoint(small){
+        width: 50%;
+    }
+    @include breakpoint(large){
+        width: 33.333%;
+    }
+}

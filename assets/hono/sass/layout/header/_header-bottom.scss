@@ -1,0 +1,28 @@
+.header-bottom{
+    position: relative;
+}
+
+
+.header-bottom-color{
+    &--golden{
+        background: #FEF5EF;
+    }
+    &--white{
+        background: $white;
+    }
+    &--black{
+        background: $color-matt-black;
+    }
+}
+
+.sticky-header{
+    &.sticky.sticky-color--golden{
+        background: #FEF5EF;
+    }
+    &.sticky.sticky-color--white{
+        background: #fff;
+    }
+    &.sticky.sticky-color--black{
+        background: $color-matt-black;
+    }
+}

@@ -1,0 +1,68 @@
+/*****************************
+* Layout - Modal
+*****************************/
+
+.modal{
+    z-index: 99999;
+    background: rgba($black, .5);
+    &-dialog{
+        max-width: calc(100% - 20px) !important;
+        margin: 0 auto !important;
+
+        @include breakpoint(medium){
+            max-width: 730px !important;
+        }
+        @include breakpoint(large){
+            max-width: 870px !important;
+        }
+        @include breakpoint(xlarge){
+            min-width: 825px !important;
+        }
+        
+    }
+    &-body{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    &-close {
+        width: 40px;
+        height: 40px;
+        border: 1px solid $body-color;
+        color: $body-color;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        &:hover{
+            color: $color-golden;
+            border-color: $color-golden;
+        }
+
+        @include breakpoint(medium){margin-bottom: 0px;}
+    }
+    
+    padding-right: 0 !important;
+
+    // Modal Body
+    &-border{
+        border-left:none;
+        @include breakpoint(large){
+            border-left: 1px solid $border-color;
+        }
+    }
+
+}
+
+.modal.fade {
+    display: block !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease 0s;
+}
+.modal.fade.show {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease 0s;
+}
+
+@import "modal/modal-add-cart.scss";
+@import "modal/modal-quick-view";

@@ -1,0 +1,96 @@
+/*****************************
+* Components - Breadcrumb
+*****************************/
+.breadcrumb-wrapper{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+    @include breakpoint(medium){
+        margin-bottom: 80px;
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+    @include breakpoint(large){
+        margin-bottom: 100px;
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+ }
+
+ .breadcrumb-title{
+     text-transform: uppercase;
+     font-size: 30px;
+     margin-bottom: 12px;
+     @include  breakpoint(medium){
+         font-size: 34px;
+     }
+     @include  breakpoint(large){
+         font-size: 38px;
+     }
+     @include  breakpoint(xlarge){
+         font-size: 42px;
+     }
+ }
+ 
+ .breadcrumb-nav{
+     li{
+         display: inline-block;
+         margin-right: 30px;
+         position: relative;
+         a{
+             color: $black;
+         }
+ 
+         &::after{
+             position: absolute;
+             content: "\f3d3";
+             font-family: "Ionicons";
+             left: calc(100% + 15px);
+         }
+ 
+         &:last-child{
+             margin-right: 0;
+             &::after{
+                 display: none;
+             }
+         }
+         
+     }
+ }
+ 
+ .sort-layout-single > .row > .col-12{
+     margin-top: 40px;
+ }
+
+ .breadcrumb-bg-color{
+     &--golden{
+         background-color: #FEF5EF;
+     }
+ }
+
+ .breadcrumb-nav-color{
+     &--black{
+        li{
+            a{
+                color: $black;
+                &:hover{color: $color-golden;}
+            }
+            
+        }
+     } 
+ }
+ .breadcrumb-nav-hover-color{
+     &--black{
+        li{
+            a:hover{
+                color: $black;
+                &:hover{color: $color-golden;}
+            }
+            .active{
+                color: $color-golden;
+            }
+            
+        }
+     } 
+ }

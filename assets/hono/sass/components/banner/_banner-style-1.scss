@@ -1,0 +1,63 @@
+/*Banner Style - 1*/
+.banner-style-1{
+    .content{
+        top: 50%;
+        transform: translateY(-50%);
+        right: 30px;
+        width: 55%;
+        @include breakpoint(small){
+            width: 55%;
+        }
+        @include breakpoint(medium){
+            width: 40%;
+        }
+        @include breakpoint(large){
+            width: 55%;
+        }
+        @include breakpoint(xlarge){
+            width: 50%;
+        }
+        @include breakpoint(xxlarge){
+            width: 45%;
+        }
+        .title{
+            font-size: 18px;
+            margin-bottom: 11px;
+            list-style: 1.1;
+            @include breakpoint(small){
+                font-size: 24px;
+            }
+            @include breakpoint(xxlarge){
+                font-size: 34px;
+                right: 60px;
+            }
+        }
+
+        .sub-title{
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: $body-color;
+            margin-bottom: 15px;
+
+            @include breakpoint(small){
+                margin-bottom: 30px;
+            }
+            @include breakpoint(medium){
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            @include breakpoint(xxlarge){
+                font-size: 16px;
+                margin-bottom: 35px;
+            }
+        }
+
+        .button{
+            i{
+                font-size: 22px;
+                line-height: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+/*****************************
+* Pages - 404
+*****************************/
+
+.error-form {
+    text-align: center;
+    .big-title{
+        font-weight: 600;
+        color: $color-golden;
+        font-size: 130px;
+        line-height: 120px;
+        letter-spacing: 4px;
+        margin: 0 0 30px;
+        @include breakpoint(medium){
+            font-size: 200px;
+            letter-spacing: 10px;
+            line-height: 1;
+            margin: 0 0 18px;
+        }
+    }
+
+    .sub-title{
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 17px;
+
+        @include breakpoint(medium){
+            line-height: 30px;
+            margin-bottom: 19px;
+            font-size: 24px;
+        }
+    }
+
+    p {
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 1.8;
+        margin-bottom: 30px;
+    }
+}
