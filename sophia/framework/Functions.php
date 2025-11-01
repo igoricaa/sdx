@@ -158,6 +158,10 @@ function post($v)
 {
     return isset($_POST[$v]) ? trim(strip($_POST[$v])) : '';
 }
+function post_raw($v)
+{
+    return isset($_POST[$v]) ? trim($_POST[$v]) : '';
+}
 function data($data, $value)
 {
     return isset($data["post_data"][$value]) ? strip($data["post_data"][$value]) : '';

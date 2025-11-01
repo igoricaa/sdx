@@ -312,7 +312,15 @@
                     </div>
                     <div class="form-group">
                         <label>Država</label>
-                        <input type="text" class="form-control" name="country" value="<?= $order['data']['country'] ?>">
+                        <select class="form-control" name="country">
+                            <?php
+                            $countries = include(DIR . '/sophia/data/countries.php');
+                            foreach ($countries as $country) : ?>
+                                <option value="<?= htmlspecialchars($country) ?>" <?= $order['data']['country'] === $country ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($country) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </form>
                 <div class="modal-footer">

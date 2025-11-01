@@ -173,30 +173,89 @@ class Admin extends \Sophia\Controller
         }
         return $return;
     }
+
+    /**
+     * Generate SQL filter for regional country matching
+     * @param string $region Regional code: US, UK, EU, AUS, or empty
+     * @return string SQL WHERE clause fragment
+     */
+    private function getRegionalCountryFilterSQL($region) {
+        if (empty($region)) {
+            return '';
+        }
+
+        // Load regional country mappings
+        $regionalCountries = include(DIR . '/sophia/data/regional_countries.php');
+
+        // If invalid region, return empty
+        if (!isset($regionalCountries[$region])) {
+            return '';
+        }
+
+        // Build OR conditions for all countries in this region
+        $conditions = [];
+        foreach ($regionalCountries[$region] as $country) {
+            $conditions[] = "country = '" . $this->DB->escape($country) . "'";
+        }
+
+        // Return WHERE clause matching any country in the region
+        return ' AND (' . implode(' OR ', $conditions) . ')';
+    }
+
     function customers($page)
     {
         $s = $page * PAGINATION - PAGINATION;
         $post = $this->check([
-            'search' => ''
+            'search' => '',
+            'country' => ''  // Actually contains region code (US/UK/EU/AUS)
         ]);
-        // if ($post->status != 0) {
-        //     $znak = "=";
-        //     $catg = $post->status - 1;
-        // } else {
-        //     $znak = ">=";
-        //     $catg = 0;
-        // }
+
         $sch = $post->search;
-        // $data = $this->DB->select("SELECT * FROM customers WHERE firstname LIKE '%$sch%' OR lastname LIKE '%$sch%' OR email LIKE '%$sch%' OR city LIKE '%$sch%' OR zip LIKE '%$sch%' OR phone LIKE '%$sch%' ORDER BY id DESC LIMIT $s, " . PAGINATION);
-        $customers = $this->DB->select("SELECT * FROM customers WHERE firstname LIKE '%$sch%' OR lastname LIKE '%$sch%' OR email LIKE '%$sch%' OR city LIKE '%$sch%' OR zip LIKE '%$sch%' OR phone LIKE '%$sch%' ORDER BY id DESC LIMIT $s, " . PAGINATION);
+        $region = $post->country;  // POST param named 'country' but contains region
+
+        // Use regional filtering
+        $countryFilter = $this->getRegionalCountryFilterSQL($region);
+
+        $customers = $this->DB->select("SELECT * FROM customers WHERE (firstname LIKE '%$sch%' OR lastname LIKE '%$sch%' OR email LIKE '%$sch%' OR city LIKE '%$sch%' OR zip LIKE '%$sch%' OR phone LIKE '%$sch%')$countryFilter ORDER BY id DESC LIMIT $s, " . PAGINATION);
         foreach ($customers as $customer) {
             list($customer['orders'], $customer['spent']) = $this->DB->values('SELECT count(id), sum(price) FROM checkout WHERE email = "' . $customer['email'] . '"');
             $customer['spent'] = dec2($customer['spent']);
             $data[] = $customer;
         }
-        // $data = $this->DB->select("SELECT customers.id, customers.email, customers.firstname, customers.lastname, count(checkout.id) as orders, sum(checkout.price) as spent FROM customers, checkout WHERE customers.email = checkout.email ORDER BY customers.id DESC LIMIT $s, " . PAGINATION);
-        $count = $this->DB->check("SELECT count(id) FROM customers WHERE firstname LIKE '%$sch%' OR lastname LIKE '%$sch%' OR email LIKE '%$sch%' OR city LIKE '%$sch%' OR zip LIKE '%$sch%' OR phone LIKE '%$sch%'");
+
+        $count = $this->DB->check("SELECT count(id) FROM customers WHERE (firstname LIKE '%$sch%' OR lastname LIKE '%$sch%' OR email LIKE '%$sch%' OR city LIKE '%$sch%' OR zip LIKE '%$sch%' OR phone LIKE '%$sch%')$countryFilter");
         return ['pages' => ceil($count / PAGINATION), 'results' => $count, 'data' => $data, 'start' => PAGINATION * $page - PAGINATION + 1];
+    }
+
+    function customersExport($region = '')
+    {
+        // Build WHERE clause for region filtering
+        $countryFilter = $this->getRegionalCountryFilterSQL($region);
+        if (!empty($countryFilter)) {
+            // Convert " AND (...)" to " WHERE (...)"
+            $countryFilter = ' WHERE ' . substr($countryFilter, 5);
+        }
+
+        $customers = $this->DB->select("SELECT * FROM customers$countryFilter ORDER BY id DESC");
+        $export = [];
+        $export[] = ['Email', 'First Name', 'Last Name', 'Phone', 'City', 'Zip', 'Country', 'Total Orders', 'Total Spent'];
+
+        foreach ($customers as $customer) {
+            list($orders, $spent) = $this->DB->values('SELECT count(id), sum(price) FROM checkout WHERE email = "' . $customer['email'] . '"');
+            $export[] = [
+                $customer['email'],
+                $customer['firstname'],
+                $customer['lastname'],
+                $customer['phone'],
+                $customer['city'],
+                $customer['zip'],
+                $customer['country'],
+                $orders,
+                dec2($spent)
+            ];
+        }
+
+        return $export;
     }
 
     function order_sent()
@@ -291,14 +350,20 @@ class Admin extends \Sophia\Controller
     {
         $post = $this->check([
             'code' => 'Unesite code!',
-            'discount' => 'Unesite discount %!'
+            'discount' => 'Unesite discount value!',
+            'type' => 'Select discount type!'
         ]);
         if (count($post->_errors)) return $post->_errors[0];
 
         if ($this->DB->check('SELECT id FROM promo_codes WHERE code = "' . $post->code . '"'))
             return "Promo code already exist!";
 
-        $this->DB->query('INSERT INTO promo_codes (code,discount,type) VALUES ("' . $post->code . '","' . $post->discount . '","1")');
+        // Validate type is either 1 (percentage) or 2 (fixed)
+        if ($post->type != 1 && $post->type != 2)
+            return "Invalid discount type!";
+
+        $sql = 'INSERT INTO promo_codes (code,discount,type) VALUES ("' . $post->code . '","' . $post->discount . '","' . $post->type . '")';
+        $this->DB->query($sql);
 
         return ['success' => 'Added!'];
     }
@@ -332,9 +397,66 @@ class Admin extends \Sophia\Controller
     {
         return $this->DB->select('SELECT * FROM subscribers');
     }
-    function buyersList()
+
+    function subscribersExport()
     {
-        return $this->DB->select('SELECT DISTINCT email FROM `checkout` WHERE status = 1');
+        $subscribers = $this->DB->select('SELECT * FROM subscribers ORDER BY id DESC');
+        $export = [];
+        $export[] = ['Email', 'Subscribed At'];
+
+        foreach ($subscribers as $sub) {
+            $export[] = [
+                $sub['email'],
+                $sub['subscribed_at']
+            ];
+        }
+
+        return $export;
+    }
+    function buyersList($region = '')
+    {
+        // Use regional filtering
+        $countryFilter = $this->getRegionalCountryFilterSQL($region);
+
+        $buyers = $this->DB->select("SELECT
+            email,
+            firstname,
+            lastname,
+            phone,
+            country,
+            city,
+            state,
+            COUNT(DISTINCT id) as total_orders,
+            SUM(price) as total_spent
+        FROM checkout
+        WHERE status >= 0$countryFilter
+        GROUP BY email, firstname, lastname, phone, country, city, state
+        ORDER BY MAX(id) DESC");
+
+        return $buyers;
+    }
+
+    function buyersExport($region = '')
+    {
+        $buyers = $this->buyersList($region);
+        $export = [];
+        $export[] = ['Email', 'First Name', 'Last Name', 'Phone', 'Country', 'City', 'State', 'Total Orders', 'Total Spent'];
+
+        foreach ($buyers as $buyer) {
+            $export[] = [
+                $buyer['email'],
+                $buyer['firstname'],
+                $buyer['lastname'],
+                $buyer['phone'],
+                $buyer['country'],
+                $buyer['city'],
+                $buyer['state'],
+                $buyer['total_orders'],
+                dec2($buyer['total_spent'])
+            ];
+        }
+
+        return $export;
     }
     
     function delete_category()
@@ -685,5 +807,62 @@ class Admin extends \Sophia\Controller
         WHERE id = "' . $post->ID . '"');
 
         return ['success' => "Uspešno izmenjeni podaci!"];
+    }
+
+    function get_popup_settings()
+    {
+        return $this->DB->fetch('SELECT * FROM popup_settings');
+    }
+
+    function update_popup_settings()
+    {
+        // Use regular set() for non-HTML fields
+        $this->set([
+            ['enabled', 'ints'],
+            ['delay_seconds', 'ints'],
+            ['cookie_days', 'ints'],
+            'email_placeholder',
+            'button_text',
+            'dismiss_text',
+            'thankyou_title',
+            'thankyou_button_text',
+            'promo_code'
+        ]);
+
+        // Manually handle HTML-containing fields using post_raw()
+        $this->_req['title'] = $this->DB->escape(post_raw('title'));
+        $this->_req['subtitle'] = $this->DB->escape(post_raw('subtitle'));
+        $this->_req['disclaimer_text'] = $this->DB->escape(post_raw('disclaimer_text'));
+        $this->_req['thankyou_message'] = $this->DB->escape(post_raw('thankyou_message'));
+
+        $post = $this->check([
+            'delay_seconds' => 'Delay seconds is required!',
+            'cookie_days' => 'Cookie days is required!',
+            'title' => 'Title is required!',
+            'promo_code' => 'Promo code is required!'
+        ]);
+
+        if (count($post->_errors))
+            return ['error' => false, 'message' => $post->_errors[0]];
+
+        $sql = "UPDATE popup_settings SET
+            enabled = '" . $post->enabled . "',
+            delay_seconds = '" . $post->delay_seconds . "',
+            cookie_days = '" . $post->cookie_days . "',
+            title = '" . $post->title . "',
+            subtitle = '" . $post->subtitle . "',
+            email_placeholder = '" . $post->email_placeholder . "',
+            button_text = '" . $post->button_text . "',
+            disclaimer_text = '" . $post->disclaimer_text . "',
+            dismiss_text = '" . $post->dismiss_text . "',
+            thankyou_title = '" . $post->thankyou_title . "',
+            thankyou_message = '" . $post->thankyou_message . "',
+            thankyou_button_text = '" . $post->thankyou_button_text . "',
+            promo_code = '" . $post->promo_code . "'
+            WHERE id = 1";
+
+        $this->DB->query($sql);
+
+        return ['error' => true, 'message' => 'Popup settings updated successfully!'];
     }
 }

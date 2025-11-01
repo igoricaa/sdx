@@ -752,4 +752,23 @@ class Shop extends \Sophia\Controller
 
         return ['success' => true];
     }
+
+    function get_popup_settings()
+    {
+        $settings = $this->DB->fetch('SELECT * FROM popup_settings');
+
+        if (!$settings) {
+            return ['enabled' => 0];
+        }
+
+        // Convert enabled to integer for JSON
+        $settings['enabled'] = (int) $settings['enabled'];
+
+        // Only return if enabled
+        if ($settings['enabled'] != 1) {
+            return ['enabled' => 0];
+        }
+
+        return $settings;
+    }
 }

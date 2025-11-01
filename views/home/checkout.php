@@ -49,7 +49,14 @@
                             <div class="col-12 mb-3">
                                 <div class="default-form-box">
                                     <label for="country">Country <span>*</span></label>
-                                    <input type="text" name="country">
+                                    <select class="form-control" name="country" id="country" required>
+                                        <option value="">Select Country</option>
+                                        <?php
+                                        $countries = include(DIR . '/sophia/data/countries.php');
+                                        foreach ($countries as $country) : ?>
+                                            <option value="<?= htmlspecialchars($country) ?>"><?= htmlspecialchars($country) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-6">

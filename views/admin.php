@@ -24,6 +24,7 @@
           <?php endif; ?></a>
         <a href="/admin/customers" class="list-group-item main-sidebar"><i class="fas fa-user"></i> Customers</a>
         <a href="/admin/promo" class="list-group-item main-sidebar"><i class="fas fa-ticket"></i> Promo Codes</a>
+        <a href="/admin/popup-settings" class="list-group-item main-sidebar"><i class="fas fa-window-restore"></i> Popup Settings</a>
         <a href="/admin/subscribers" class="list-group-item main-sidebar"><i class="fas fa-envelope"></i> Subscribers</a>
         <a href="/admin/buyers" class="list-group-item main-sidebar"><i class="fas fa-envelope"></i> buyers</a>
         <hr>

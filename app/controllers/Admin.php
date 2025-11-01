@@ -50,6 +50,17 @@ class Admin extends \Sophia\Controller
   }
   function customers()
   {
+    if (isset($_GET['export'])) {
+      $region = isset($_GET['region']) ? $_GET['region'] : '';
+      $data = $this->Admin->customersExport($region);
+      $file = md5(rand() . rand());
+      $fp = fopen(__DIR__.'/../../csv/' . $file . '.csv', 'w+');
+      foreach ($data as $fields) {
+        fputcsv($fp, $fields);
+      }
+      fclose($fp);
+      die("<script>window.location.href='/csv/$file.csv'</script>");
+    }
     return $this->view();
   }
   function customer($email = 0)
@@ -131,27 +142,36 @@ class Admin extends \Sophia\Controller
   }
   function subscribers()
   {
+    if (isset($_GET['export'])) {
+      $data = $this->Admin->subscribersExport();
+      $file = md5(rand() . rand());
+      $fp = fopen(__DIR__.'/../../csv/' . $file . '.csv', 'w+');
+      foreach ($data as $fields) {
+        fputcsv($fp, $fields);
+      }
+      fclose($fp);
+      die("<script>window.location.href='/csv/$file.csv'</script>");
+    }
     return $this->view([
       'subscribers' => $this->Admin->subscribers()
     ]);
   }
   function buyers()
   {
-    $buyers = $this->Admin->buyersList();
+    $region = isset($_GET['region']) ? $_GET['region'] : '';
+    $buyers = $this->Admin->buyersList($region);
+
     if (isset($_GET['export'])) {
+      $data = $this->Admin->buyersExport($region);
       $file = md5(rand() . rand());
       $fp = fopen(__DIR__.'/../../csv/' . $file . '.csv', 'w+');
-
-      // Loop through file pointer and a line
-      foreach ($buyers as $fields) {
+      foreach ($data as $fields) {
         fputcsv($fp, $fields);
       }
-
       fclose($fp);
-      // header('Location: /csv/' . $file . '.csv');
-      // die;
       die("<script>window.location.href='/csv/$file.csv'</script>");
     }
+
     return $this->view([
       'buyers' => $buyers
     ]);
@@ -161,5 +181,11 @@ class Admin extends \Sophia\Controller
     session_destroy();
     header('Location: /admin');
     die;
+  }
+  function popup_settings()
+  {
+    return $this->view([
+      'settings' => $this->Admin->get_popup_settings()
+    ]);
   }
 }

@@ -167,4 +167,15 @@ class Shop extends \Sophia\Controller
             $this->Shop->subscribe()
         );
     }
+    function get_popup_config()
+    {
+        try {
+            // Get popup settings from database
+            $popupSettings = $this->Shop->get_popup_settings();
+
+            $this->json($popupSettings, true);
+        } catch (\Exception $e) {
+            $this->json(['error' => $e->getMessage()], true);
+        }
+    }
 }

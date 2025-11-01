@@ -344,43 +344,34 @@
 <div class="modal fade" id="WelcomePromo">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style=" max-width: 450px; margin: auto; ">
-            <!-- <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-      </div> -->
             <div class="modal-body px-5">
                 <p class="text-right">
                     <button type="button" class="close" data-dismiss="modal" onclick="$('.modal').modal('hide')">&times;</button>
                 </p>
                 <div id="promoWelc">
-                    <h1 class="text-center font-weight-bold">UNLOCK 10% OFF <br>your order</h1>
+                    <h1 class="text-center font-weight-bold" id="popup-title">UNLOCK 10% OFF <br>your order</h1>
+                    <div id="popup-subtitle" class="text-center"></div>
                     <br>
-                    <!-- <h5 class="text-center">ENTER YOUR EMAIL TO GET YOUR 20% OFF DISCONT CODE.</h5> -->
-                    <!-- <br> -->
                     <br>
                     <p class="default-form-box"><input type="email" id="PromoEmail" placeholder="Email"></p>
-                    <p><a href="#" class="btn btn-golden btn-block btn-lg my-2 btn-rounded" onclick="WelcomePromo()">Continue</a></p>
-                    <p class="small text-center">*by submitting this form, you agree to receive promotional and marketing emails.
-                        <!-- by completing this form you are signing up to receive our emails and can unsubscrive at any time. -->
-                    </p>
+                    <p><a href="#" class="btn btn-golden btn-block btn-lg my-2 btn-rounded" id="popup-button" onclick="WelcomePromo()">Continue</a></p>
+                    <p class="small text-center" id="popup-disclaimer">*by submitting this form, you agree to receive promotional and marketing emails.</p>
                     <br>
-                    <p class="text-center font-weight-bold"><a href="#" data-dismiss="modal" onclick="$('.modal').modal('hide')"><u>PAY FULL PRICE</u></a></p>
+                    <p class="text-center font-weight-bold"><a href="#" data-dismiss="modal" onclick="$('.modal').modal('hide')" id="popup-dismiss"><u>PAY FULL PRICE</u></a></p>
                 </div>
                 <div id="promoHello" style="display:none;">
-                    <h1 class="text-center">Thank you!</h1>
+                    <h1 class="text-center" id="popup-thankyou-title">Thank you!</h1>
                     <br>
                     <br>
-                    <h5 class="text-center">
+                    <h5 class="text-center" id="popup-thankyou-message">
                         Use promo code <u><b>10SDX</b></u> at checkout and get 10% off!
                     </h5>
                     <br>
-                    <p><button type="button" class="btn btn-golden btn-block btn-lg my-2 btn-rounded" data-dismiss="modal" onclick="$('.modal').modal('hide')">Continue</button>
+                    <p><button type="button" class="btn btn-golden btn-block btn-lg my-2 btn-rounded" data-dismiss="modal" onclick="$('.modal').modal('hide')" id="popup-thankyou-button">Continue</button>
                     </p>
                     <br>
                 </div>
             </div>
-            <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
         </div>
     </div>
 </div>

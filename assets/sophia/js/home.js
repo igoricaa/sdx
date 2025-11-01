@@ -206,14 +206,42 @@ function notify(e, a = !1) {
     var n = (a) ? 'Success!' : 'Error!';
     swal(n, e, t), loading(0);
 }
-/**
-setTimeout(function () {
-    if (getCookie("WelcomePromo") == "") {
-        $("#WelcomePromo").modal("show");
-        setCookie("WelcomePromo", 1, 31);
-    }
-}, 2000);
-*/
+
+// Dynamic Popup System - Load from admin settings
+$(document).ready(function() {
+    $.ajax({
+        url: ' /response/shop/get_popup_config',
+        dataType: 'json',
+        success: function(config) {
+            if (config.enabled) {
+                // Populate popup with dynamic content
+                $('#popup-title').html(config.title);
+                if (config.subtitle) {
+                    $('#popup-subtitle').html(config.subtitle);
+                }
+                $('#PromoEmail').attr('placeholder', config.email_placeholder);
+                $('#popup-button').text(config.button_text);
+                $('#popup-disclaimer').html(config.disclaimer_text);
+                $('#popup-dismiss').html('<u>' + config.dismiss_text + '</u>');
+
+                $('#popup-thankyou-title').text(config.thankyou_title);
+                $('#popup-thankyou-message').html(config.thankyou_message);
+                $('#popup-thankyou-button').text(config.thankyou_button_text);
+
+                // Store promo code for later use
+                window.popupPromoCode = config.promo_code;
+
+                // Show popup after delay if cookie doesn't exist
+                setTimeout(function () {
+                    if (getCookie("WelcomePromo") == "") {
+                        $("#WelcomePromo").modal("show");
+                        setCookie("WelcomePromo", 1, config.cookie_days);
+                    }
+                }, config.delay_seconds * 1000);
+            }
+        }
+    });
+});
 
 function WelcomePromo() {
     var email = $("#PromoEmail").val();

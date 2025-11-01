@@ -61,6 +61,7 @@ class Admin extends \Sophia\Controller
     {
         $this->Admin->set([
             'search',
+            'country'
         ]);
         $this->json(
             $this->Admin->customers($page),
@@ -216,8 +217,10 @@ class Admin extends \Sophia\Controller
     function addPromoCode(){
         $this->Admin->set([
             ['code', 'clean'],
-            ['discount', 'ints']
+            ['discount', 'ints'],
+            ['type', 'ints']
         ]);
+        
         $this->json(
             $this->Admin->addPromoCode()
         );
@@ -295,6 +298,14 @@ class Admin extends \Sophia\Controller
         ]);
         $this->json(
             $this->Admin->edit_product()
+        );
+    }
+    function update_popup_settings()
+    {
+        // Field handling moved to Admin model's update_popup_settings()
+        // to properly handle HTML fields vs regular fields
+        $this->json(
+            $this->Admin->update_popup_settings()
         );
     }
 }

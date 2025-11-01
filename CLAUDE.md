@@ -4,182 +4,181 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an e-commerce platform built with a custom PHP framework called "Sophia". The application sells smart drugs/nootropics and supports multiple payment methods (Stripe, PayPal, cryptocurrency via CoinPayments).
+This is a PHP-based e-commerce application called "SmartDrugsX" built on a custom MVC framework named "Sophia". The application handles product sales, checkout, admin management, and integrates with payment providers (Stripe, Coinpayments), email services, and Klaviyo.
 
-**Technology Stack:**
-- PHP with custom Sophia MVC framework
-- MySQL database
-- Composer for dependency management
-- External integrations: Stripe, Klaviyo (email marketing), PHPMailer
+## Running the Application
 
-## Framework Architecture (Sophia)
+**Development Server:**
+```bash
+php -S localhost:8000 router.php
+```
 
-### Request Flow
-1. All requests hit [index.php](index.php), which bootstraps the application
-2. [Sophia\Core::init()](sophia/framework/Core.php) parses URLs via `sophia` GET parameter: `/?sophia=Controller/method/param1/param2`
-3. URLs map to: `Controllers\{Controller}::{method}(param1, param2)`
-4. Special case: URLs starting with `Response/` map to `Response\{Controller}` (used for AJAX endpoints)
+The `router.php` file handles clean URL routing for the PHP built-in server, mimicking Apache's mod_rewrite:
+- `/home/shop` → `?sophia=home/shop`
+- `/admin/login` → `?sophia=admin/login`
+- Hyphens in URLs are converted to underscores for method names (e.g., `/admin/popup-settings` → `popup_settings` method)
 
-### Directory Structure
-- `sophia/framework/` - Core framework classes (Core, Controller, Javascript, Stylesheet)
-- `sophia/addons/` - Service classes (Database, Email, Stripe, Coinpayments)
-- `app/controllers/` - Application controllers (Home, Admin)
-- `app/models/` - Data models (Shop, Admin, Ipn)
-- `app/response/` - AJAX response handlers (Shop, Admin)
-- `views/` - PHP view templates organized by controller (`views/home/`, `views/admin/`)
+**Database Connection:**
+- Host: localhost
+- User: smartdrugsx_admin
+- Database: smartdrugsx_admin
+- Ensure MySQL/MariaDB is running before starting the development server
 
-### Key Framework Classes
-
-**Sophia\Controller** ([sophia/framework/Controller.php](sophia/framework/Controller.php)):
-- `view($arr)` - Returns data array for view rendering; auto-determines view path from class/method name
-- `json($data, $t)` - Outputs JSON response and terminates
-- `set($fields)` - Sanitizes POST data into `$this->_req` array
-- `check($rules)` - Validates required fields, returns object with `_errors` array
-- `model($name)` - Instantiates model from `Model\` namespace
-
-**Sophia\Addon\Database** ([sophia/addons/Database.php](sophia/addons/Database.php)):
-- `query($sql)` - Execute query; auto-returns insert_id for INSERT, affected_rows for UPDATE
-- `select($sql)` - Returns array of associative arrays
-- `fetch($sql)` - Returns single row (auto-adds LIMIT 1)
-- `escape($str)` - Escape string for SQL safety
-- `check($sql)` - Returns last value from fetch result, or 0 if empty
-
-### Configuration Constants (defined in index.php)
-- Database: `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`
-- Email: `EMAIL_HOST`, `EMAIL_USERNAME`, `EMAIL_PASSWORD`
-- Admin credentials: `ADMIN_USERNAME`, `ADMIN_PASSWORD`
-- Paths: `DIR` (document root), `APP`, `VIEWS`
-
-## Common Development Commands
-
-### Composer
+**Dependencies:**
 ```bash
 cd sophia
-composer install              # Install dependencies
-composer update               # Update dependencies
-composer dump-autoload        # Regenerate autoloader
+composer install
 ```
 
-### Local Development Setup
+## Architecture
 
-#### 1. Install MySQL (if not installed)
-```bash
-brew install mysql
-brew services start mysql
+### Request Flow
+
+1. `index.php` - Entry point that defines constants, loads dependencies, and renders the main HTML wrapper
+2. `sophia/framework/Core.php` - Parses the `sophia` URL parameter (e.g., `?sophia=home/shop`)
+   - Format: `/{controller}/{method}/{params...}`
+   - Default controller: `Home`, default method: `index`
+   - Special case: URLs starting with `response/` route to Response handlers instead of Controllers
+3. Controllers in `app/controllers/` handle business logic
+4. Models in `app/models/` handle database operations
+5. Views in `views/` render HTML templates
+6. Response handlers in `app/response/` return JSON for AJAX requests
+
+### Directory Structure
+
+```
+app/
+├── controllers/     # Business logic (Home.php, Admin.php)
+├── models/         # Database operations (Shop.php, Admin.php, Ipn.php)
+├── response/       # AJAX/JSON endpoints (Shop.php, Admin.php)
+sophia/
+├── framework/      # Core framework classes (Core, Controller, Javascript, Stylesheet)
+├── addons/        # Third-party integrations (Database, Email, Stripe, Coinpayments)
+├── data/          # Static data files (countries.php, regional_countries.php)
+views/
+├── home/          # Frontend views for shop
+├── admin/         # Admin panel views
+assets/
+├── sophia/js/     # JavaScript files (home.js, admin/*.js)
+├── hono/          # Frontend theme assets
 ```
 
-#### 2. Create Database and User
-```bash
-# Login to MySQL (fresh install usually has no root password)
-mysql -u root
+### Framework Components
 
-# Or if password is set:
-mysql -u root -p
+**Sophia\Core:**
+- Parses URLs via `sophia` parameter
+- Routes to Controllers (default) or Response handlers
+- Returns "404" if controller/method doesn't exist
 
-# Run these SQL commands:
-CREATE DATABASE smartdrugsx_admin;
-CREATE USER 'smartdrugsx_admin'@'localhost' IDENTIFIED BY 'SmArTnewpassX0987';
-GRANT ALL PRIVILEGES ON smartdrugsx_admin.* TO 'smartdrugsx_admin'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
+**Sophia\Controller (base class):**
+- `DB()` - Initialize database connection
+- `model($name)` - Load a model from `app/models/`
+- `view($arr)` - Prepare data for view rendering, returns merged data array
+- `json($data)` - Return JSON response and terminate
+- `set($fields)` - Process and sanitize POST data
+- `check($required)` - Validate required fields
 
-#### 3. Import Database Schema
-```bash
-mysql -u smartdrugsx_admin -pSmArTnewpassX0987 smartdrugsx_admin < database_schema.sql
-```
+**Autoloading (PSR-4):**
+- `Sophia\Addon\` → `sophia/addons/`
+- `Sophia\` → `sophia/framework/`
+- `Controllers\` → `app/controllers/`
+- `Response\` → `app/response/`
+- `Model\` → `app/models/`
 
-This creates all required tables and adds sample data for testing.
+### Key Patterns
 
-#### 4. Start Development Server
+**Controllers:**
+- Extend `Sophia\Controller`
+- Methods return arrays passed to `view()` helper
+- Use `$this->model('ModelName')` to load models
+- Use `$this->json()` for API responses
 
-**Option A: With Clean URLs (Recommended)**
-```bash
-# Uses router.php to mimic Apache's mod_rewrite behavior
-php -S localhost:8000 router.php
+**Models:**
+- Handle all database operations via `$this->DB` (instance of `Sophia\Addon\Database`)
+- Return data arrays or execute queries
 
-# Access with clean URLs (like production):
-# http://localhost:8000/home/shop
-# http://localhost:8000/home/shopus
-# http://localhost:8000/admin/login
-```
+**Response Handlers:**
+- Located in `app/response/`
+- Handle AJAX requests from JavaScript
+- Always return JSON via `$this->json()`
 
-**Option B: Without Clean URLs**
-```bash
-# Standard PHP server (no URL rewriting)
-php -S localhost:8000
-
-# Access with ?sophia= parameter:
-# http://localhost:8000/?sophia=home/shop
-# http://localhost:8000/?sophia=admin/login
-```
-
-**Note:** PHP's built-in server doesn't process `.htaccess` files. Use [router.php](router.php) to enable clean URLs locally that match production behavior.
-
-### Database
-Database connection is auto-initialized via `Sophia\Addon\Database` constructor. Credentials defined in [index.php](index.php:67-70) constants.
-
-**Database Tables:**
-- `categories`, `products`, `product_package`, `product_images`, `product_description`
-- `quantity_discount`, `reviews`, `promo_codes`, `used_promo`
-- `checkout`, `checkout_cart`, `customers`, `payments`, `coinpayments`
-- `order_timeline`, `subscribers`
-
-See [database_schema.sql](database_schema.sql) for complete schema definition.
-
-**Regional Shop Variants:**
-The application has regional-specific shop pages that filter products by category:
-- `/home/shopus` (category 9) - US Domestic products
-- `/home/shopeu` (category 12) - EU Domestic products
-- `/home/shopuk` (category 11) - UK Domestic products
-- `/home/shopin` (category 14) - India Domestic products
-- `/home/shoppremium` (category 15) - Premium products
-- `/home/shop` - All products except category 9
-
-To add test data for regional shops, run:
-```bash
-mysql -u smartdrugsx_admin -pSmArTnewpassX0987 smartdrugsx_admin < add_regional_data.sql
-```
-
-## Development Guidelines
-
-### Creating a New Controller Method
-1. Add method to controller in `app/controllers/`
-2. Return `$this->view([...data...])` for page rendering
-3. Create corresponding view file in `views/{controller}/{method}.php`
-4. Access via `/?sophia={controller}/{method}`
-
-### Creating an AJAX Endpoint
-1. Add method to controller in `app/response/`
-2. Use `$this->set([...])` to sanitize POST inputs
-3. Call model methods and return with `$this->json($result, true)`
-4. Access via `/?sophia=response/{controller}/{method}`
-
-### Database Queries
-Always use `$this->DB->escape()` on user input or use the `set()` method which auto-escapes. The `set()` method accepts field names with optional sanitization functions (e.g., `'field'`, `['field', 'ints']`, `['field', 'clean']`).
-
-### Model Pattern
-Models extend `Sophia\Controller` to access `$this->DB`. They contain business logic and database queries. Initialize DB in constructor with `$this->DB()`.
-
-### View Rendering
-The `content()` helper function (in [sophia/framework/Functions.php](sophia/framework/Functions.php)) includes view files. Views receive data as `$data` variable extracted into local scope.
+**Views:**
+- PHP templates in `views/`
+- Receive data arrays from controllers
+- Main wrapper is in `index.php` (lines 145-213)
+- Use `content()` helper to include view files
 
 ### Asset Management
-CSS/JS dependencies are registered in [index.php](index.php) in `$data['css']` and `$data['js']` arrays. Use:
-- `Stylesheet::add($name, $url)` / `Stylesheet::page($data)` for CSS
-- `Javascript::add($name, $url)` / `Javascript::page($data)` for JS
 
-## Third-Party Integrations
+**CSS/JS Loading:**
+- Defined in `index.php` in the `$data` array (lines 75-129)
+- `Sophia\Stylesheet::add()` and `Sophia\Javascript::add()` register assets
+- `Sophia\Stylesheet::page()` and `Sophia\Javascript::page()` render tags
+- Controllers can add page-specific assets via `$this->data['style']` and `$this->data['script']`
 
-**Stripe** - Payment processing via `sophia/addons/Stripe.php`
-**Klaviyo** - Email marketing (Company ID: UEJZUV in index.php)
-**CoinPayments** - Cryptocurrency payments via `sophia/addons/Coinpayments.php`
-**PHPMailer** - Email sending via `sophia/addons/Email.php`
+**Third-party Libraries:**
+- Bootstrap 4.6, jQuery 3.5, Font Awesome, SweetAlert2
+- Stripe.js for payment processing
+- Klaviyo for email marketing
+- Hono theme (local assets in `/assets/hono/`)
 
-## Important Notes
+## Common Tasks
 
-- Session-based cart system stored in `$_SESSION['cart']`
-- Timezone set to Europe/Belgrade
-- URL routing expects `/?sophia=` parameter (mod_rewrite likely configured)
-- Admin authentication checks should verify against `ADMIN_USERNAME` and `ADMIN_PASSWORD` constants
-- Sensitive credentials are hardcoded in index.php (not ideal for production - consider environment variables)
+**Add a new page:**
+1. Add method to controller (e.g., `public function shop_page()` in `app/controllers/Home.php`)
+2. Create view file (e.g., `views/home/shop_page.php`)
+3. Access via URL: `http://localhost:8000/home/shop-page` (hyphens become underscores)
+
+**Add an AJAX endpoint:**
+1. Create method in `app/response/{Controller}.php`
+2. Call from JavaScript: `fetch('/?sophia=response/{controller}/{method}')`
+3. Return data using `$this->json($data)`
+
+**Add database operations:**
+1. Add method to model in `app/models/`
+2. Use `$this->DB->query()` or helper methods
+3. Call from controller: `$this->model('ModelName')->methodName()`
+
+**Debug database queries:**
+- Model files contain raw SQL queries
+- Check `Sophia\Addon\Database` in `sophia/addons/Database.php` for query methods
+
+## Important Configuration
+
+**Constants (index.php):**
+- `DIR` - Document root
+- `APP` - Application directory
+- `VIEWS` - Views directory path
+- `SITENAME` - Site name displayed in titles
+- `PAGINATION` - Items per page (10)
+- Database credentials: `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`
+- Admin credentials: `ADMIN_USERNAME`, `ADMIN_PASSWORD`
+- Email settings: `EMAIL_HOST`, `EMAIL_USERNAME`, `EMAIL_PASSWORD`
+
+**Security:**
+- Admin authentication handled in `app/controllers/Admin.php`
+- Input sanitization via `$this->DB->escape()` in Controller's `set()` method
+- HTTPS URLs are enforced for external resources
+
+## Testing Pages
+
+Test frontend pages:
+```bash
+curl -s "http://localhost:8000/home/shop"
+curl -s "http://localhost:8000/home/shopus"
+curl -s "http://localhost:8000/home/shopeu"
+curl -s "http://localhost:8000/home/checkout"
+```
+
+Test admin pages (requires authentication):
+```bash
+curl -s "http://localhost:8000/admin/login"
+```
+
+## Recent Changes
+
+The following files have been recently modified or added:
+- Admin system: Customer management, order management, promo codes, popup settings
+- Shop model enhancements for regional shops (US, EU, UK, Premium)
+- Country/regional data files added in `sophia/data/`
+- JavaScript updates for admin functionality (customers.js, popup_settings.js)
