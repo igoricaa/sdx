@@ -154,6 +154,10 @@ class Home extends \Sophia\Controller
         //     header("Location: /home/proceed/" . $id);
         //     exit;
         // }
+
+        // Send automatic email for credit/debit card payment
+        $this->Shop->card_payment_email(ints($id));
+
         return $this->view([
             'id' => ints($id),
             'details' => $this->Shop->detailss(ints($id)),

@@ -771,4 +771,35 @@ class Shop extends \Sophia\Controller
 
         return $settings;
     }
+
+    function card_payment_email($order_id)
+    {
+        $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $order_id . '"');
+
+        if (!$order) {
+            return false;
+        }
+
+        $email_template = $_SERVER['DOCUMENT_ROOT'] . "/email_card_payment.html";
+        $open_file = fopen($email_template, "r") or die("Unable to open file!");
+        $email_content = fread($open_file, filesize($email_template));
+        fclose($open_file);
+
+        $email_content = str_replace('[DISCOUNT]', $order['discount'], $email_content);
+        $email_content = str_replace('[FIRSTNAME]', $order['firstname'], $email_content);
+        $email_content = str_replace('[LASTNAME]', $order['lastname'], $email_content);
+        $email_content = str_replace('[STREET_ADDRESS]', $order['street'] . ", " . $order['apartment'], $email_content);
+        $email_content = str_replace('[CITY]', $order['city'], $email_content);
+        $email_content = str_replace('[COUNTRY]', $order['country'], $email_content);
+        $email_content = str_replace('[ZIP]', $order['zip'], $email_content);
+        $email_content = str_replace('[PHONE]', $order['phone'], $email_content);
+        $email_content = str_replace('[EMAIL]', $order['email'], $email_content);
+        $email_content = str_replace('[PRICE]', $order['price'], $email_content);
+        $email_content = str_replace('[ITEMS]', $order['items'], $email_content);
+        $email_content = str_replace('[TOTAL]', number_format($order['price'] - $order['discount'], 2), $email_content);
+
+        $subject = "Order Confirmation - Credit/Debit Card Payment #" . $order['id'];
+
+        return \Sophia\Addon\Email::shopping($email_content, $order['email'], $subject);
+    }
 }
