@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-6 col-xl-3 mx-auto text-center cst-pa">
                     <label>
-                        <input type="radio" id="card" name="payment" value="card">
+                        <input type="radio" id="card" name="payment" value="card" <?= !empty($data['has_discount']) ? 'checked' : '' ?>>
                         <p class="font-weight-bold text-center px-4 py-5" for=card>
                             <img src="/assets/img/check1.svg" class="pay-checker" alt="">
                             <img src="/assets/img/card_payment.svg" alt="" class="proc-img">
@@ -84,6 +84,7 @@
                     </label>
                 </div>
                 -->
+                <?php if (empty($data['has_discount'])): ?>
                 <div class="col-12 col-xl-3 mx-auto text-center cst-pa">
                     <label>
                         <input type="radio" id="crypto" name="payment" value="crypto" checked>
@@ -109,6 +110,7 @@
                     </p>
                     -->
                 </div>
+                <?php endif; ?>
                 <!--
                 <div class="col-6 col-sm-5 mx-auto text-center cst-pa mx-auto">
                     <label>

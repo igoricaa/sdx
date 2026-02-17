@@ -573,6 +573,11 @@ class Shop extends \Sophia\Controller
             return "Order doesn't exist!";
 
         $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $post->order . '"');
+
+        if (!empty($order['discount_code'])) {
+            return "Promo codes cannot be combined with cryptocurrency payments. Please choose a different payment method.";
+        }
+
         $currency = strtoupper($post->currency);
         if ($order['discount'] > 0) {
             $amount = $order['price'] - $order['discount'];
@@ -621,6 +626,11 @@ class Shop extends \Sophia\Controller
     function validate_order($id)
     {
         return $this->DB->check("SELECT count(id) FROM checkout WHERE id = '" . $id . "'");
+    }
+    function has_discount_code($id)
+    {
+        $code = $this->DB->check('SELECT discount_code FROM checkout WHERE id = "' . $id . '"');
+        return !empty($code);
     }
     function is_proceed($id)
     {

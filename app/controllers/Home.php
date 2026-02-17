@@ -111,8 +111,10 @@ class Home extends \Sophia\Controller
             header("Location: /home/payment/" . $id);
             exit;
         }
+        $has_discount = $this->Shop->has_discount_code(ints($id));
         return $this->view([
-            'order' => ints($id)
+            'order' => ints($id),
+            'has_discount' => $has_discount
         ]);
     }
     function zelle_payment($id = 0)

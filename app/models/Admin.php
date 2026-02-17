@@ -288,6 +288,7 @@ class Admin extends \Sophia\Controller
             $email_content = str_replace('[PRICE]', $order['price'], $email_content);
             $email_content = str_replace('[ITEMS]', $order['items'], $email_content);
             $email_content = str_replace('[ORDER_TRACKING_NUMBER]', $post->tracking, $email_content);
+            $email_content = str_replace('[DELIVERY_NAME]', $post->delivery, $email_content);
 
             $subject = "Order sent! #" . $post->order;
 

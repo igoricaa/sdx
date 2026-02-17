@@ -14,7 +14,7 @@ function categories_list() {
         complete: function(e) {
             loading(0);
             var pCat = $('#categories_list').data('category');
-            $("#categories_list option[value='" + pCat + "']").attr('selected', 'selected');
+            $('#categories_list').val(pCat);
         },
         error: function(e) {
             // location.reload();
