@@ -5,8 +5,6 @@ namespace Sophia\Addon;
 class Database
 {
 	private $DB;
-	private $sql;
-
 	function __construct()
 	{
 		$this->DB = new \mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);

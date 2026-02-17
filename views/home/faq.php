@@ -53,6 +53,27 @@
                         <br>
                         Simply browse our shop, add your desired products to the cart, and proceed to checkout or email us if the product is not listed. It’s that easy! 
                     </li>
+                    <li class="q">Are all countries eligible for refunds or free reshipments?</li>
+                    <li class="a">
+                       Unfortunately, not all countries are eligible for refunds or free reshipments. 
+                       This is due to stricter customs procedures and higher interception rates in certain regions.
+                        <br>
+                        <br>
+                      At the moment, the following destinations are not eligible for refunds or free reships:
+                        <br>
+                        - Canada
+                         <br>
+                        - Ireland
+                         <br>
+                        - Malta
+                         <br>
+                        - All Scandinavian countries (Denmark, Sweden, Norway, Finland, Iceland)
+                        <br>
+                        <br>
+                        We recommend customers from these regions choose reliable shipping options and carefully review all order details before completing checkout.
+                        <br>
+                        If you have questions about your location or shipping options, feel free to contact our support team.
+                    </li>
                     <li class="q">
                         What makes SmartDrugsX unique?
                     </li>
@@ -225,14 +246,14 @@
                     </li>
                     <li class="q">What course of action should I take in the event that my shipment is stolen, destroyed, or lost in transit?</li>
                     <li class="a">
-                        <p>Every <strong>SmartDrugsX</strong> order is personally tracked by our dispatch managers, and should there be any issues of package loss or theft, we will inform you immediately.</p>
-                        <p>These issues occur rarely, but do not worry we have your back.</p>
-                        <p>We provide <u>full refunds</u> on undelivered packages or if you prefer, a free reshipment</u>. 
-                        <p>Just shoot us an email at smartdrugsx@gmail.com. We’re always here for you!</p>
+                        <p>Every <strong>SmartDrugsX</strong> order is personally tracked by our dispatch managers. If the package is lost in transit, do not worry we have your back. If the tracking information shows no movement for <strong>15 working days</strong>, please contact us. Once confirmed, we will issue a free reshipment of your order.
+                        <p> We recommend keeping an eye on your tracking link and reaching out to our support team if you notice extended delays. We are always here to help.</p>
+                        <p>If your package arrives with visible damage or appears empty, please contact us immediately with photos of the parcel. <strong>Once a shipment is confirmed as delivered, refunds or reshipments are not automatically issued.</strong> We will review each case with our shipping partners to determine the appropriate next steps.</p>
+                        <p>Just shoot us an email at smartdrugsx@gmail.com. We appreciate your cooperation and understanding.</p>
                     </li>
                     <li class="q">What type of packaging do you use?</li>
                     <li class="a">
-                        <p>Our packaging is neat and discreet. Smooth, unassuming white envelopes with dual bubble wrap linings to ensure complete protection of your product(s).</p>
+                        <p>Our packaging is neat and discrete. Smooth, unassuming white envelopes with dual bubble wrap linings to ensure complete protection of your product(s).</p>
                         <p>Packing is made of high-grade cardboard and has no mention of modafinil or any other medications. We keep it on the down low.</p>
                     </li>
                 </ul>
@@ -258,6 +279,7 @@
                     </li>
                     <li class="q">How do I initiate a reshipment or refund?</li>
                     <li class="a">
+                        <p>Please check first if your country is eligible for a refund or free reshipment. You can find the list under General questions in FAQ. 
                         <p>We issue refunds and free reshipments if any of the following events occur:</p>
                         <p>You receive the wrong product.</p>
                         <p>You receive damaged products.</p>

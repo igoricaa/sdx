@@ -23,12 +23,12 @@
         }, t)
     }
     showAnnouncements([
-        "🎃 HALLOWEEN SALE: 15% OFF - Code: BOO15 |LIVE NOW! ⏳",
-        //"🚀 Get 20 Pills FREE — leave us 2 reviews of your choice, put the links in your order note and we will add freebies to your order! 🚀",
+       "US Warehouse Now Restocked! Enjoy domestic shipping on a variety of products - fast and reliable.🚀",
+        //"💥 Get $25 USD OFF on ALL orders over $130 USD! 💥 Use code ALL25 - limited-time offer! Discounts cannot be combined.",
     "🔥All payment options available!🔥",
         //"🎁 Free samples with your next order when you leave us a review!👉 Just send us your review link, and the freebies are yours!🎁",
         "NO HIDDEN FEES. 24/7 SUPPORT. GUARANTEED FREE SHIPPING.",
-        //"If you don't have a Crypto Wallet please reach out and we will be happy to assit you!",
+        "🚀 Get our Premium Moda Mak·er and Armoda Do·er formulas with SUPER-FAST shipping!🚀 ",
     //Due to the Easter holiday, some delays may occur in processing and shipping. Thank you for your patience.",
     ], 4000);
 </script>

@@ -40,7 +40,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <img src="/assets/pictures/D EXPRESS UK & WORLDWIDE@4x-min.png" alt="" class="w-100">
+                                <img src="/assets/pictures/UK AND WORLDWIDE@4x-min.png" alt="" class="w-100">
                             </div>
                             <div class="col-12">
                                 <div class="tab-content tab-animate-zoom">

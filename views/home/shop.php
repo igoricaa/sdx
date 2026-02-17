@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-4">
                         <a href="/home/shopuk">
-                            <img src="/assets/pictures/Artboard 9@5x-min.png" alt="" class="w-100">
+                            <img src="/assets/pictures/D UK TO UK@4x.png" alt="" class="w-100">
                         </a>
                     </div>
                     <div class="col-4">
