@@ -199,6 +199,11 @@ class Shop extends \Sophia\Controller
             return 'Invalid promo code';
         }
     }
+    function remove_discount_code()
+    {
+        $_SESSION['promo'] = "";
+        return ['success' => 'Discount removed'];
+    }
     function changeShippingCost()
     {
         $post = $this->check();

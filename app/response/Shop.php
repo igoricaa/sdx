@@ -57,6 +57,12 @@ class Shop extends \Sophia\Controller
             $this->Shop->check_discount_code()
         );
     }
+    function remove_discount_code()
+    {
+        $this->json(
+            $this->Shop->remove_discount_code()
+        );
+    }
     function remove()
     {
         $this->Shop->set([

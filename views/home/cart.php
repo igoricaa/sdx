@@ -103,8 +103,8 @@
                                 <p class="cart_amount">$<span id='products_price'>215.00</span></p>
                             </div>
                             <div class="cart_subtotal">
-                                <p>Discount</p>
-                                <p class="cart_amount"> $<span id='discount_amount'>0.00</span></p>
+                                <p><span id="discount_label">Discount</span></p>
+                                <p class="cart_amount"> $<span id='discount_amount'>0.00</span> <a href="#" id="remove_coupon" class="remove_coupon" onclick="removeCoupon(); return false;" style="display:none;"><i class="fa fa-times"></i></a></p>
                             </div>
                             <!-- <div class="cart_subtotal ">
                                 <p>Shipping</p>

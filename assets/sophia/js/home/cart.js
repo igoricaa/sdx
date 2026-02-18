@@ -59,7 +59,14 @@ function cart_page() {
             });
 
             $('#discount_amount').html(e.discount_amount);
-            $('#coupon_code').val(e.discount_code);
+            if (e.discount_code) {
+                $('#discount_label').html('Discount (' + e.discount_code + ')');
+                $('#remove_coupon').show();
+                $('#coupon_code').val('');
+            } else {
+                $('#discount_label').html('Discount');
+                $('#remove_coupon').hide();
+            }
 
 
             $('#result_card').html(cart_content);
@@ -111,7 +118,6 @@ function update_cart_ajax() {
 function addCoupon() {
     var code = $('#coupon_code').val();
 
-    // cart_page_loading();
     $.ajax({
         type: 'POST',
         url: ' /response/shop/check_discount_code',
@@ -120,16 +126,26 @@ function addCoupon() {
         success: function (e) {
             notify(e.message, e.error);
             if (e.error) {
-                setTimeout(function () {
-                    location.reload();
-                }, 2500);
+                $('#coupon_code').val('');
+                cart_page();
             }
         },
-        complete: function () {
-            $('.cart-loader').hide();
+        error: function (e) {
+        }
+    });
+    return false
+}
+
+function removeCoupon() {
+    $.ajax({
+        type: 'POST',
+        url: ' /response/shop/remove_discount_code',
+        dataType: 'json',
+        success: function (e) {
+            notify(e.message, e.error);
+            cart_page();
         },
         error: function (e) {
-            // location.reload();
         }
     });
     return false
