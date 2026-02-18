@@ -513,6 +513,9 @@ class Admin extends \Sophia\Controller
     }
     function edit_product()
     {
+        if (empty($_POST)) {
+            return "Fajl je prevelik! Maksimalna veličina je 20MB.";
+        }
 
         $post = $this->check([
             'name' => 'Unesite naziv product(s)!',

@@ -23,6 +23,17 @@ function categories_list() {
 }
 categories_list();
 
+$('#fileElem').change(function() {
+    var maxSize = 20 * 1024 * 1024;
+    for (var i = 0; i < this.files.length; i++) {
+        if (this.files[i].size > maxSize) {
+            alert('Fajl "' + this.files[i].name + '" je prevelik! Maksimalna veličina je 20MB.');
+            this.value = '';
+            return;
+        }
+    }
+});
+
 $('#edit_product').click(function() {
     var form_data = new FormData(document.getElementById("form_product"));
     loading();
