@@ -84,10 +84,10 @@
                     </label>
                 </div>
                 -->
-                <?php if (empty($data['has_discount'])): ?>
-                <div class="col-12 col-xl-3 mx-auto text-center cst-pa">
+                <div class="col-12 mx-auto text-center cst-pa <?= !empty($data['has_discount']) ? 'payment-disabled' : '' ?>">
                     <label>
-                        <input type="radio" id="crypto" name="payment" value="crypto" checked>
+                        <input type="radio" id="crypto" name="payment" value="crypto"
+                            <?= empty($data['has_discount']) ? 'checked' : 'disabled' ?>>
                         <p class="font-weight-bold text-center px-4 py-5" for=crypto>
                             <img src="/assets/img/check1.svg" class="pay-checker" alt="">
                             <img src="/assets/img/crypto.svg" alt="" class="proc-img">
@@ -96,21 +96,12 @@
                             Cryptocurrency payment
                         </p>
                     </label>
-                    <!--
-                    <br>
-                    <br>
-                    <p>
-                        If you already own cryptocurrency you can instantly complete your transaction by choosing your preferred cryptocurrency and proceeding to the next window where you will get detailed payment instructions with our cryptocurrency wallet address.
-                    </p>
-                    <p class="small" style=" color: #777777; font-size: 80%; ">
-                        For further detailed instructions regarding 'Cryptocurrency payment' please click on the link below:
-                        <br>
-                        <br>
-                        <a href="/home/instructions" target="_blank" class="btn btn-lg btn-golden px-5 btn-insctructions">Instructions</a>
-                    </p>
-                    -->
+                    <?php if (!empty($data['has_discount'])): ?>
+                        <p class="crypto-disabled-msg">
+                            Special offers can't be combined. Please remove your promo code to proceed to crypto payments and get 10% off.
+                        </p>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
                 <!--
                 <div class="col-6 col-sm-5 mx-auto text-center cst-pa mx-auto">
                     <label>

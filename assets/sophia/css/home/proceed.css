@@ -86,3 +86,24 @@
     border-bottom: 0px solid #F89D00;
 
 }
+
+/* Disabled payment method */
+.payment-disabled label {
+    pointer-events: none;
+    cursor: default;
+}
+
+.payment-disabled [type=radio] + p {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    border-color: #ccc;
+    cursor: default;
+}
+
+.crypto-disabled-msg {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+    padding: 0 10px;
+    line-height: 1.4;
+}
