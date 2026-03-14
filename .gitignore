@@ -6,3 +6,4 @@ sophia/vendor/
 
 # OS files
 .DS_Store
+error_log
