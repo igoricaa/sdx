@@ -21,6 +21,11 @@ class Ipn extends \Sophia\Controller
         $status_text = $_POST['status_text'];
         $this->DB->query("UPDATE coinpayments SET description = '$status_text', status = '$status' WHERE txn_id = '$txn_id'");
         if ($status >= 100) {
+            // Atomically set email_sent flag — only proceeds if it was 0
+            $affected = $this->DB->query("UPDATE coinpayments SET email_sent = 1 WHERE txn_id = '$txn_id' AND email_sent = 0");
+            if ($affected == 0) {
+                die('IPN OK');
+            }
             $checkout_id = $this->DB->check('SELECT order_id FROM coinpayments WHERE txn_id = "'.$txn_id.'"');
             $email_template = $_SERVER['DOCUMENT_ROOT'] . "/email_payment_received.html";
             $open_file = fopen($email_template, "r") or die("Unable to open file!");

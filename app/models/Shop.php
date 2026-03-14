@@ -450,8 +450,10 @@ class Shop extends \Sophia\Controller
     function paypal_pay($id)
     {
         $orderId = ints($id);
-        $this->DB->query("UPDATE checkout SET is_paypal = 1 WHERE id = '$orderId' AND status = 0");
-
+        $affected = $this->DB->query("UPDATE checkout SET is_paypal = 1, email_sent = 1 WHERE id = '$orderId' AND status = 0 AND email_sent = 0");
+        if ($affected == 0) {
+            return;
+        }
         $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $orderId . '"');
         if ($order['discount'] > 0) {
             $amount = $order['price'] - $order['discount'] + 10;
@@ -521,10 +523,10 @@ class Shop extends \Sophia\Controller
         if (count($post->_errors))
             return $post->_errors[0];
 
-        if (!$this->DB->check('SELECT id FROM checkout WHERE id = "' . $post->order . '"'))
-            return "Order doesn't exist!";
-
-        $this->DB->query("UPDATE checkout SET is_zelle = 1 WHERE id = '$post->order' AND status = 0");
+        $affected = $this->DB->query("UPDATE checkout SET is_zelle = 1, email_sent = 1 WHERE id = '$post->order' AND status = 0 AND email_sent = 0");
+        if ($affected == 0) {
+            return ['success' => "/home/payment/" . $post->order . "?zelle"];
+        }
 
         $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $post->order . '"');
 
@@ -574,13 +576,17 @@ class Shop extends \Sophia\Controller
         if (count($post->_errors))
             return $post->_errors[0];
 
-        if (!$this->DB->check('SELECT id FROM checkout WHERE id = "' . $post->order . '"'))
-            return "Order doesn't exist!";
-
         $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $post->order . '"');
+        if (!$order)
+            return "Order doesn't exist!";
 
         if (!empty($order['discount_code'])) {
             return "Promo codes cannot be combined with cryptocurrency payments. Please choose a different payment method.";
+        }
+
+        $affected = $this->DB->query("UPDATE checkout SET email_sent = 1 WHERE id = '" . $post->order . "' AND email_sent = 0");
+        if ($affected == 0) {
+            return ['success' => "/home/payment/" . $post->order];
         }
 
         $currency = strtoupper($post->currency);
@@ -701,10 +707,15 @@ class Shop extends \Sophia\Controller
         $amount = $order['price'] - $order['discount'];
         // $amount=1;
 
+        $affected = $this->DB->query('UPDATE checkout SET email_sent = 1 WHERE id = "' . $post->order . '" AND email_sent = 0');
+        if ($affected == 0) {
+            return ['success' => 'Successful payment!'];
+        }
+
         $charge = \Sophia\Addon\Stripe::charge($secret, $public, $post->stripeToken, $amount, 0, $post->name, $post->email);
         if (is_Array($charge)) {
 
-            $this->DB->query('INSERT INTO payments (name, user_id, amount, currency, status, txid, email) 
+            $this->DB->query('INSERT INTO payments (name, user_id, amount, currency, status, txid, email)
             VALUES ("' . $charge['name'] . '", "' . $post->order . '", "' . $charge['paidAmount'] . '", "' . $charge['paidCurrency'] . '", "' . $charge['payment_status'] . '", "' . $charge['transactionID'] . '", "' . $post->email . '")');
 
             // \Sophia\Addon\Email::send("Hvala na vasoj narudzbi!", "Hvala vam na ukazanom povjerenju!<br><br>Sad je vrijeme za edukaciju. U nastavku ovog maila nalazi se link od Discord servera. Nakon što se pridružite serveru molim vas pročitajte upute koje se nalaze u kanalu #početak.<br>Nakon što vam bude dobijete permisiju člana, biti će te mogućnosti pristupiti cijeloj zajednici što znači da će te vidjeti sve kanale, te dobiti pristup svim edukativnim materijalima.<br><br>Link discord servera: https://discord.gg/rDKAbnZnqE<br><br>Još jednom vam se zahvaljujemo na ukazanom povjerenju, te obećavamo da ćemo učiniti sve kako bi ga opravdali.<br><br>S poštovanjem,<br>VukForexa.", $post->email, $charge['name'], false);
@@ -789,8 +800,12 @@ class Shop extends \Sophia\Controller
 
     function card_payment_email($order_id)
     {
-        $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $order_id . '"');
+        $affected = $this->DB->query('UPDATE checkout SET email_sent = 1 WHERE id = "' . $order_id . '" AND email_sent = 0');
+        if ($affected == 0) {
+            return false;
+        }
 
+        $order = $this->DB->fetch('SELECT * FROM checkout WHERE id = "' . $order_id . '"');
         if (!$order) {
             return false;
         }
