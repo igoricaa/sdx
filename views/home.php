@@ -28,7 +28,7 @@
     "🔥All payment options available!🔥",
         //"🎁 Free samples with your next order when you leave us a review!👉 Just send us your review link, and the freebies are yours!🎁",
         "NO HIDDEN FEES. 24/7 SUPPORT. GUARANTEED FREE SHIPPING.",
-        "🚀 Get our Premium Moda Mak·er and Armoda Do·er formulas with SUPER-FAST shipping! USE THE CODE 10OFF TO GET 10% OFF!🚀 ",
+        //"🚀 Get our Premium Moda Mak·er and Armoda Do·er formulas with SUPER-FAST shipping! USE THE CODE 10OFF TO GET 10% OFF!🚀 ",
     //Due to the Easter holiday, some delays may occur in processing and shipping. Thank you for your patience.",
     ], 4000);
 </script>

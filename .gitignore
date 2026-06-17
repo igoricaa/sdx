@@ -1,9 +1,11 @@
-# Environment variables
-.env
-
-# Vendor directories
-sophia/vendor/
-
-# OS files
 .DS_Store
+Thumbs.db
+
 error_log
+*.log
+
+.ftpquota
+.ftp-deploy-sync-state.json
+
+node_modules/
+.cache/

@@ -67,15 +67,15 @@ define('SITENAME', 'SmartDrugsX 🔥');
 define("EMAIL_NAME", "SmartDrugsX");
 define("EMAIL_HOST", "mail.smartdrugsx.co");
 define("EMAIL_USERNAME", "noreply@smartdrugsx.co");
-define("EMAIL_PASSWORD", 'p9E057cspzKP');
+define("EMAIL_PASSWORD", 'tB5$mQ8^vJ!zP3*x');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'smartdrugsx_admin');
 define('DB_PASS', 'SmArTnewpassX0987');
 define('DB_NAME', 'smartdrugsx_admin');
 
-define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'ixp6kV8n3cQB9eX2j9UZcSgsqJNSiQfT');
+define('ADMIN_USERNAME', 'sdxadmin');
+define('ADMIN_PASSWORD', '105019e29864f24ee53bc798687c0c75f10b');
 
 $data = [
     'css' => [
